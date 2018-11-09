@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rayold.everydayneeds.R;
+import com.example.rayold.everydayneeds.admin;
 
 public class Login extends AppCompatActivity {
 
@@ -45,10 +46,14 @@ public class Login extends AppCompatActivity {
                 if (chkmailpass == true) {
                     Toast.makeText(getApplicationContext(),"Successful login", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(Login.this, Activity_LoggedIn.class);
+                    Intent j = new Intent(Login.this, admin.class);
                     i.putExtra("EMAIL", email);
                     i.putExtra("NAME",user.getName());
                     i.putExtra("ROLE",user.getRole());
-                    startActivity(i);
+                    if(db.isAdministrator(email)==true){
+                        startActivity(j);
+                    }else{
+                        startActivity(i);}
                 } else {
                     Toast.makeText(getApplicationContext(),"Wrong email or password", Toast.LENGTH_SHORT).show();
                 }
